@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-drawer v-model="isShow" title="HTML相关">
+    <el-drawer v-model="isShow" title="HTML相关" @close="handleClose">
       <div class="list">
 				<span class="listItem" v-for="item in htmlMenu" :key="item.id" @click="touchOne(item.id)">
 					{{item.title}}
@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRef } from "vue-demi";
+import { defineComponent, ref, toRef } from "vue-demi";
 import { useRouter } from "vue-router";
 import htmlMenu from '@/catalog/htmlMenu'
 
 export default defineComponent({
-  emits: ["selectItem"],
+  emits: ["selectItem", "close"],
   name: "menuDrawer",
   props: {
     menuArr: {
@@ -30,6 +30,7 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const R = useRouter();
+    // const t = ref(props.showDrawer)
 		const isShow = toRef(props, "showDrawer")
     const methods = {
       touchOne(id: any) {
@@ -39,13 +40,14 @@ export default defineComponent({
         console.log("123");
       },
       handleClose() {
-        console.log("456");
+        ctx.emit("close");
       },
     };
     return {
       R,
       ...methods,
 			isShow,
+      // t,
 			htmlMenu,
     };
   },

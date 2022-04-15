@@ -2,7 +2,7 @@
 	<div>
 		<div>html</div>
 		<el-button type="success" @click="open">Success</el-button>
-		<menu-drawer :showDrawer="drawerShow" :menuArr="menu" @selectItem="selectOne"></menu-drawer>
+		<menu-drawer :showDrawer="drawerShow" :menuArr="menu" @selectItem="selectOne" @close="close"></menu-drawer>
 	</div>
 </template>
 
@@ -21,7 +21,10 @@ export default defineComponent({
 		const menu = ref([])
     const methods = {
       open() {
-        drawerShow.value = !drawerShow.value
+        drawerShow.value = true
+      },
+      close() {
+        drawerShow.value = false
       },
       handleClose() {
         console.log("456");

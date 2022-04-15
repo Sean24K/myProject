@@ -24,7 +24,7 @@ import { defineComponent } from "vue-demi";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
-  emits: ["select"],
+  emits: ["select", "close"],
   name: "pathMenu",
   props: {
     menuArr: {
@@ -42,7 +42,7 @@ export default defineComponent({
         console.log('123')
       },
       handleClose() {
-        console.log('456')
+        ctx.emit("close")
       }
     }
     return {
