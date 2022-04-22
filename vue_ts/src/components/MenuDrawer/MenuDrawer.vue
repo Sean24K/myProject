@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-drawer v-model="isShow" title="HTML相关" @close="handleClose">
+    <el-drawer v-model="popupShow" title="HTML相关" @close="handleClose">
       <div class="list">
 				<span class="listItem" v-for="item in htmlMenu" :key="item.id" @click="touchOne(item.id)">
 					{{item.title}}
@@ -11,12 +11,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, toRef } from "vue-demi";
+import { defineComponent, ref, toRef, computed } from "vue-demi";
 import { useRouter } from "vue-router";
 import htmlMenu from '@/catalog/htmlMenu'
 
 export default defineComponent({
-  emits: ["selectItem", "close"],
+  emits: ["selectItem", "close", "update:modelValue"],
   name: "menuDrawer",
   props: {
     menuArr: {
@@ -26,12 +26,24 @@ export default defineComponent({
 		showDrawer: {
 			type: Boolean,
 			default: false
-		}
+		},
+    modelValue: {
+      type: Boolean,
+      defalult: false
+    }
   },
   setup(props, ctx) {
+    const popupShow: any = computed({
+      get() {
+        return props.modelValue
+      },
+      set(val) {
+        ctx.emit("update:modelValue", val)
+      }
+    })
     const R = useRouter();
     // const t = ref(props.showDrawer)
-		const isShow = toRef(props, "showDrawer")
+		// const isShow = toRef(props, "showDrawer")
     const methods = {
       touchOne(id: any) {
         ctx.emit("selectItem", id);
@@ -46,7 +58,7 @@ export default defineComponent({
     return {
       R,
       ...methods,
-			isShow,
+			popupShow,
       // t,
 			htmlMenu,
     };

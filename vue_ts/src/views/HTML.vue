@@ -1,8 +1,9 @@
 <template>
 	<div>
 		<div>html</div>
+    <!-- <codemirror></codemirror> -->
 		<el-button type="success" @click="open">Success</el-button>
-		<menu-drawer :showDrawer="drawerShow" :menuArr="menu" @selectItem="selectOne" @close="close"></menu-drawer>
+		<menu-drawer v-model="drawerShow" :menuArr="menu" @selectItem="selectOne" @close="close"></menu-drawer>
 	</div>
 </template>
 
@@ -10,10 +11,12 @@
 import { defineComponent, reactive, toRef, ref } from "vue-demi";
 import { useRouter } from "vue-router";
 import MenuDrawer from '@/components/MenuDrawer/MenuDrawer.vue'
+// import codemirror from '@/components/Content/content.vue'
 
 export default defineComponent({
 	components: {
-		MenuDrawer
+		MenuDrawer,
+    // codemirror
 	},
   setup(props, ctx) {
     const R = useRouter();
