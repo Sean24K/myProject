@@ -2,8 +2,8 @@
   <div>
     <el-drawer v-model="popupShow" title="HTML相关" @close="handleClose">
       <div class="list">
-				<span class="listItem" v-for="item in htmlMenu" :key="item.id" @click="touchOne(item.id)">
-					{{item.title}}
+				<span class="listItem" v-for="(item, index) in htmlMenu" :key="item.id" @click="touchOne(item.id)">
+					{{index + 1}}.{{item.title}}
 				</span>
 			</div>
     </el-drawer>
